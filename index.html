@@ -21,6 +21,21 @@ function showPosition(position) {
     page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
   }
 });
+        
+        const Url = 'https://onsen-8f340.firebaseio.com/logs.json';
+let Data = {
+  latitude:position.coords.latitude,
+  longitude:position.coords.longitude
+};
+const Params = {
+  headers:{ 
+    'Content-Type':'application/json'
+  },
+  body:JSON.stringify(Data),
+  method:'POST'
+};
+console.log(JSON.stringify(Data));
+fetch(Url, Params).then(data=>{return data.json();}).then(res=>{console.log(res);});
     </script>
     
 <body>
