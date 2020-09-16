@@ -5,19 +5,24 @@
   <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
   <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 </head>
+    
     <script>
         document.addEventListener('init', function(event) {
   var page = event.target;
-
+function showPosition(position) {
+    page.querySelector('#latlng').innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+}
   if (page.id === 'page1') {
     page.querySelector('#push-button').onclick = function() {
       document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Page 2'}});
     };
   } else if (page.id === 'page2') {
+      navigator.geolocation.getCurrentPosition(showPosition);
     page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
   }
 });
     </script>
+    
 <body>
   <ons-button onclick="alert('Hello World!')">Click Me</ons-button>
     <ons-navigator swipeable id="myNavigator" page="page1.html"></ons-navigator>
@@ -41,7 +46,8 @@
       <div class="center"></div>
     </ons-toolbar>
 
-    <p>This is the second page.</p>
+    <p id="latlng">This is the second page.</p>
+      
   </ons-page>
 </template>
 </body>
